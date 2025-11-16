@@ -148,6 +148,9 @@ async function startPlayer(
     throw new Error("Unable to bootstrap js-dos");
   }
 
+  player.setAutoStart?.(true);
+  player.setCountDownStart?.(0);
+
   return player;
 }
 

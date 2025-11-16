@@ -22,6 +22,8 @@ The app follows the js-dos getting-started guide by loading the stylesheet and r
 is no need to check large emulator blobs into `public/`. When wiring the `Dos` player, make sure the `pathPrefix` points to
 `https://v8.js-dos.com/latest/emulators/`—that folder hosts the `emulators.js` worker bundle that powers js-dos. 【75bfef†L1-L27】
 
+If the emulator console shows `panic]Broken bundle, .jsdos/dosbox.conf not found`, the archive being streamed is missing the metadata js-dos requires at the root of the ZIP file. Run `bun run check:bundles` to scan every `.jsdos` under `public/games` and report missing `.jsdos/dosbox.conf` or `.jsdos/jsdos.json` files before restarting the dev server. For a manual spot check, `unzip -l public/games/jetpack.jsdos | head` should list `.jsdos/dosbox.conf` near the top. The dev server now emits `Cache-Control: no-store` for `/games/*.jsdos` so reloading the page always streams the on-disk archive instead of a stale browser cache.
+
 ## Scripts
 
 | Command | Description |
@@ -35,14 +37,25 @@ is no need to check large emulator blobs into `public/`. When wiring the `Dos` p
 ## Adding or editing games
 
 1. Drop a `.jsdos` archive inside `public/games`. Each archive is just a zip file that contains your `dosbox.conf` and the game
-   files (the samples in this repo mount the bundle root as the `C:` drive). Any shareware pulled from archive.org or personal
-   backups works as long as it is repackaged this way.
+   files (the samples in this repo mount the bundle root as the `C:` drive). js-dos expects those configs to live under a nested
+   `.jsdos/` directory along with a `jsdos.json` metadata file—if you leave `dosbox.conf` at the zip root the emulator boots to
+   an idle prompt because it cannot discover the autoexec instructions. A ready-to-use configuration template matching the
+   upstream bundles is stored in [`data/jsdos-template`](data/jsdos-template) so you can copy it into new archives.
 2. Register the new title inside [`data/games.ts`](data/games.ts) with metadata, control hints, and the bundle filename.
 3. Restart the dev server so the updated list is picked up.
 
 The `GamePlayer` component automatically streams bundles through the js-dos runtime, explicitly enables worker-threaded
 emulation (the default recommended in the docs) for smooth performance, and displays helpful loading states so players know
 when the emulator is ready to capture input.【7b31e3†L1-L38】
+
+### Rebuilding a broken bundle
+
+If `bun run check:bundles` highlights a missing `.jsdos` directory:
+
+1. Unzip the affected archive into a temporary folder.
+2. Copy the `.jsdos` directory from [`data/jsdos-template`](data/jsdos-template) into that folder so `dosbox.conf`, `jsdos.json`, and `readme.txt` live under `.jsdos/` alongside the rest of the game files.
+3. Re-zip the folder contents (the `.jsdos/` directory must stay at the archive root) and move the refreshed `.jsdos` file back into `public/games`.
+4. Restart `bun run dev` so the dev server serves the updated asset.
 
 ## Linting & formatting
 

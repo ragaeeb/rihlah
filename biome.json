@@ -14,5 +14,20 @@
     "rules": {
       "recommended": true
     }
+  },
+  "files": {
+    "includes": [
+      "app/**/*.ts",
+      "app/**/*.tsx",
+      "components/**/*.ts",
+      "components/**/*.tsx",
+      "data/**/*.ts",
+      "types/**/*.ts",
+      "types/**/*.d.ts",
+      "README.md",
+      "next.config.ts",
+      "tsconfig.json",
+      "package.json"
+    ]
   }
 }

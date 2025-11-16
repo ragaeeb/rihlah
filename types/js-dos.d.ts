@@ -1,5 +1,6 @@
 export type DosOptions = {
   url?: string;
+  bundleUrl?: string;
   pathPrefix?: string;
   workerThread?: boolean;
   background?: string;
@@ -9,6 +10,8 @@ export type DosOptions = {
 
 export type DosPlayer = {
   stop: () => Promise<void> | void;
+  setAutoStart?: (enabled: boolean) => void;
+  setCountDownStart?: (seconds: number) => void;
 };
 
 declare global {

@@ -18,7 +18,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check app components data types README.md next.config.ts tsconfig.json package.json",
-    "format": "biome format --write ."
+    "format": "biome format --write .",
+    "check:bundles": "bun scripts/verify-bundles.ts"
   },
   "dependencies": {
     "js-dos": "^8.3.20",
@@ -32,6 +33,7 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
+    "jszip": "^3.10.1",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3"
   },
