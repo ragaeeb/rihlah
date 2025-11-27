@@ -1,13 +1,8 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
+  "$schema": "https://biomejs.dev/schemas/latest/schema.json",
   "formatter": {
     "indentStyle": "space",
     "indentWidth": 2
-  },
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
-    }
   },
   "linter": {
     "enabled": true,
@@ -17,15 +12,9 @@
   },
   "files": {
     "includes": [
-      "app/**/*.ts",
-      "app/**/*.tsx",
-      "components/**/*.ts",
-      "components/**/*.tsx",
-      "data/**/*.ts",
-      "types/**/*.ts",
-      "types/**/*.d.ts",
+      "index.html",
+      "biome.json",
       "README.md",
-      "next.config.ts",
       "tsconfig.json",
       "package.json"
     ]

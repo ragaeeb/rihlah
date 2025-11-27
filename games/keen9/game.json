@@ -1,0 +1,21 @@
+{
+  "id": "keen9",
+  "title": "Commander Keen 9: Battle of the Brains",
+  "description": "Fan-made finale! Keen faces his greatest challenge yet.",
+  "author": "Szemigi (Fan Game)",
+  "year": 2015,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "keen9-bundle.jsdos",
+  "executable": "Keen9.bat",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Pogo / Fire",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_1706-DOS.php"
+}

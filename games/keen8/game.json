@@ -1,0 +1,21 @@
+{
+  "id": "keen8",
+  "title": "Commander Keen 8: Dead in the Desert",
+  "description": "Another fan-made Keen adventure set in a desert world.",
+  "author": "Ceilick (Fan Game)",
+  "year": 2006,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "keen8-bundle.jsdos",
+  "executable": "keen8",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Pogo / Fire",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_737-DOS.php"
+}

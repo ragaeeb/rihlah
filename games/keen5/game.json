@@ -1,0 +1,21 @@
+{
+  "id": "keen5",
+  "title": "Commander Keen 5: The Armageddon Machine",
+  "description": "Keen infiltrates the Omegamatic to stop the Shikadi from destroying the galaxy!",
+  "author": "id Software",
+  "year": 1991,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "keen5-bundle.jsdos",
+  "executable": "keen5e",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Pogo / Fire",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_481-DOS.php"
+}

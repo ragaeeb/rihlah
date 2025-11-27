@@ -1,71 +1,277 @@
-# Rihlah DOS Library
+# 🎮 DOS Games Arcade
 
-A Next.js 16 application bootstrapped with Bun, Tailwind CSS v4, and Biome that uses [js-dos](https://js-dos.com/overview.html) to
-load curated MS-DOS shareware directly in the browser. The default build includes Jetpack, Commander Keen 4, and Wolfenstein 3D
-bundled as `.jsdos` archives, mirroring the interactive experience on sites such as My Abandonware.
+A static web application that lets you play classic DOS games directly in your browser. Built with [js-dos](https://js-dos.com/) - a DOSBox emulator compiled to JavaScript.
 
-https://github.com/js-dos/dosbox
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-## Requirements
+## ✨ Features
 
-- [Bun](https://bun.sh) `1.3.2` (run `bun upgrade` if you are on an older version)
-- Node.js is not required because Bun handles the runtime and package management.
+- **No installation required** - Play directly in your browser
+- **Mobile friendly** - Responsive design works on all devices
+- **Easy to deploy** - Static files, works with GitHub Pages
+- **Easy to extend** - Simple process to add new games
 
-## Getting started
+## 🚀 Quick Start
+
+### Running Locally
 
 ```bash
+# Clone the repository
+git clone https://github.com/ragaeeb/rihlah.git
+cd rihlah
+
+# Install dependencies (requires Bun >= 1.3.2)
 bun install
+
+# Start local server
 bun run dev
+
+# Open http://localhost:8080 in your browser
 ```
 
-The app follows the js-dos getting-started guide by loading the stylesheet and runtime directly from the official CDN, so there
-is no need to check large emulator blobs into `public/`. When wiring the `Dos` player, make sure the `pathPrefix` points to
-`https://v8.js-dos.com/latest/emulators/`—that folder hosts the `emulators.js` worker bundle that powers js-dos. 【75bfef†L1-L27】
+Or simply open `index.html` in a browser (some features may require a server due to CORS).
 
-If the emulator console shows `panic]Broken bundle, .jsdos/dosbox.conf not found`, the archive being streamed is missing the metadata js-dos requires at the root of the ZIP file. Run `bun run check:bundles` to scan every `.jsdos` under `public/games` and report missing `.jsdos/dosbox.conf` or `.jsdos/jsdos.json` files before restarting the dev server. For a manual spot check, `unzip -l public/games/jetpack.jsdos | head` should list `.jsdos/dosbox.conf` near the top. The dev server now emits `Cache-Control: no-store` for `/games/*.jsdos` so reloading the page always streams the on-disk archive instead of a stale browser cache.
+### Deploying to GitHub Pages
 
-## Scripts
+1. Fork or push this repository to GitHub
+2. Go to **Settings** → **Pages**
+3. Under "Build and deployment", select **GitHub Actions**
+4. Push to `main` branch - the site will deploy automatically
 
-| Command | Description |
-| --- | --- |
-| `bun run dev` | Start Next.js in development mode. |
-| `bun run build` | Create an optimized production build. |
-| `bun run start` | Serve the production build. |
-| `bun run lint` | Run the Biome linter across the repo. |
-| `bun run format` | Format the codebase with Biome. |
+Your arcade will be live at `https://YOUR_USERNAME.github.io/REPO_NAME/`
 
-## Adding or editing games
+## 📁 Project Structure
 
-1. Drop a `.jsdos` archive inside `public/games`. Each archive is just a zip file that contains your `dosbox.conf` and the game
-   files (the samples in this repo mount the bundle root as the `C:` drive). js-dos expects those configs to live under a nested
-   `.jsdos/` directory along with a `jsdos.json` metadata file—if you leave `dosbox.conf` at the zip root the emulator boots to
-   an idle prompt because it cannot discover the autoexec instructions. A ready-to-use configuration template matching the
-   upstream bundles is stored in [`data/jsdos-template`](data/jsdos-template) so you can copy it into new archives.
-2. Register the new title inside [`data/games.ts`](data/games.ts) with metadata, control hints, and the bundle filename.
-3. Restart the dev server so the updated list is picked up.
+```
+dos-games-arcade/
+├── index.html              # Main game launcher page
+├── play.html               # Game player page
+├── package.json            # Node.js configuration
+├── src/
+│   └── games.json          # List of all games (for launcher)
+├── games/
+│   └── jetpack/            # Game folder
+│       ├── game.json       # Game metadata
+│       └── jetpack-bundle.jsdos  # js-dos bundle
+├── scripts/
+│   └── add-game.ts         # Helper script to add games (TypeScript)
+└── .github/
+    └── workflows/
+        └── deploy.yml      # GitHub Pages deployment
+```
 
-The `GamePlayer` component automatically streams bundles through the js-dos runtime, explicitly enables worker-threaded
-emulation (the default recommended in the docs) for smooth performance, and displays helpful loading states so players know
-when the emulator is ready to capture input.【7b31e3†L1-L38】
+## 🎯 Adding a New Game
 
-### Rebuilding a broken bundle
+### Method 1: Using the Helper Script
 
-If `bun run check:bundles` highlights a missing `.jsdos` directory:
+```bash
+bun run add-game
+```
 
-1. Unzip the affected archive into a temporary folder.
-2. Copy the `.jsdos` directory from [`data/jsdos-template`](data/jsdos-template) into that folder so `dosbox.conf`, `jsdos.json`, and `readme.txt` live under `.jsdos/` alongside the rest of the game files.
-3. Re-zip the folder contents (the `.jsdos/` directory must stay at the archive root) and move the refreshed `.jsdos` file back into `public/games`.
-4. Restart `bun run dev` so the dev server serves the updated asset.
+Follow the prompts to enter game details.
 
-## Linting & formatting
+### Method 2: Manual Setup
 
-[Biome](https://biomejs.dev) replaces ESLint/Prettier in this project. Run `bun run lint` before committing to ensure the config
-matches the repository style.
+#### Step 1: Get the Game Files
 
-## Deployment notes
+Download DOS game files from legitimate sources like:
+- [DOS Games Archive](https://www.dosgamesarchive.com/)
+- [RGB Classic Games](https://www.classicdosgames.com/)
+- [RetroGames.cz](https://www.retrogames.cz/)
 
-- Because the game bundles live in `public/games`, they are served as static assets on any platform that supports Next.js 16.
-- If you plan to add your own bundles at runtime (for example via uploads), store them in object storage and update
-  `GamePlayer` to point to the new URLs.
-- The UI intentionally mirrors the classic “load list + emulator” layout from Jetpack on MyAbandonware so players can pick and
-  launch games in a single tap.
+Games typically come as:
+- `.zip` containing `.exe` files
+- `.zip` containing `.img` disk images
+
+#### Step 2: Create a js-dos Bundle
+
+A js-dos bundle is a ZIP file containing:
+1. Game files (or disk image)
+2. DOSBox configuration in `.jsdos/dosbox.conf`
+
+**For games with executables:**
+
+```bash
+# Create bundle directory
+mkdir -p mygame/.jsdos
+
+# Copy game files
+cp -r game_files/* mygame/
+
+# Create dosbox.conf
+cat > mygame/.jsdos/dosbox.conf << 'EOF'
+[autoexec]
+mount c .
+c:
+GAME.EXE
+EOF
+
+# Create the bundle
+cd mygame
+zip -r ../mygame-bundle.jsdos .
+```
+
+**For games with disk images (.img):**
+
+```bash
+# Create bundle directory
+mkdir -p mygame/.jsdos
+
+# Copy image file
+cp game.img mygame/
+
+# Create dosbox.conf with imgmount
+cat > mygame/.jsdos/dosbox.conf << 'EOF'
+[autoexec]
+imgmount c game.img -size 512,8,2,384
+c:
+GAME
+EOF
+
+# Create the bundle
+cd mygame
+zip -r ../mygame-bundle.jsdos .
+```
+
+> **Note:** The `-size` parameter depends on the disk image. Common values:
+> - Floppy 1.44MB: `-size 512,18,2,80`
+> - Floppy 720KB: `-size 512,9,2,80`
+> - Custom: Check the original source
+
+#### Step 3: Create Game Folder
+
+```bash
+mkdir -p games/mygame
+mv mygame-bundle.jsdos games/mygame/
+```
+
+#### Step 4: Create game.json
+
+Create `games/mygame/game.json`:
+
+```json
+{
+  "id": "mygame",
+  "title": "My Game",
+  "description": "A classic DOS game description",
+  "author": "Publisher Name",
+  "year": 1993,
+  "genre": ["Action", "Platform"],
+  "bundle": "mygame-bundle.jsdos",
+  "executable": "game",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Space": "Jump",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://example.com/game-source"
+}
+```
+
+#### Step 5: Update games.json
+
+Add your game to `src/games.json`:
+
+```json
+{
+  "games": [
+    {
+      "id": "mygame",
+      "title": "My Game",
+      "description": "A classic DOS game description",
+      "year": 1993,
+      "genre": ["Action", "Platform"]
+    }
+  ]
+}
+```
+
+#### Step 6: Test & Deploy
+
+```bash
+bun run dev
+# Open http://localhost:8080 and test your game
+
+# When ready, commit and push
+git add .
+git commit -m "Add My Game"
+git push
+```
+
+## 🔧 DOSBox Configuration
+
+The `.jsdos/dosbox.conf` file uses standard DOSBox configuration. Common options:
+
+```ini
+[sdl]
+fullscreen=false
+output=surface
+
+[dosbox]
+machine=svga_s3
+memsize=16
+
+[cpu]
+cycles=auto
+
+[autoexec]
+# Commands to run on startup
+mount c .
+c:
+GAME.EXE
+```
+
+See the [DOSBox Wiki](https://www.dosbox.com/wiki/Dosbox.conf) for all options.
+
+## 🎨 Customization
+
+### Adding Thumbnails
+
+Add a `thumbnail.png` (recommended 320x200 or 640x400) to each game folder for display on the launcher.
+
+### Modifying Styles
+
+Edit the `<style>` sections in `index.html` and `play.html`. The design uses CSS custom properties for easy theming:
+
+```css
+:root {
+    --bg-primary: #0d0d0d;
+    --accent: #ff2e63;
+    --text-secondary: #08d9d6;
+    /* ... */
+}
+```
+
+## 📜 License
+
+This project is MIT licensed. Note that individual games may have their own licenses - check before distributing.
+
+## 🙏 Credits
+
+- [js-dos](https://js-dos.com/) - DOSBox in the browser
+- [DOSBox](https://www.dosbox.com/) - The original DOS emulator
+- Game files from [RetroGames.cz](https://www.retrogames.cz/)
+
+## 🐛 Troubleshooting
+
+### Game shows black screen
+- Check browser console for errors
+- Verify the `.jsdos` bundle contains correct `dosbox.conf`
+- Ensure paths in `dosbox.conf` match actual file names
+
+### Game runs too fast/slow
+- Adjust `cycles` in `dosbox.conf`:
+  ```ini
+  [cpu]
+  cycles=10000
+  ```
+
+### No sound
+- Some browsers require user interaction before playing audio
+- Click anywhere on the page before starting the game
+
+### Controls not working
+- Click on the game canvas to focus it
+- Some games use specific key bindings - check original documentation
+

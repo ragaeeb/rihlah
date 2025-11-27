@@ -1,0 +1,21 @@
+{
+  "id": "keen7",
+  "title": "Commander Keen 7: The Keys of Krodacia",
+  "description": "A fan-made Keen adventure! Find the keys to save Krodacia.",
+  "author": "Ceilick (Fan Game)",
+  "year": 2005,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "keen7-bundle.jsdos",
+  "executable": "keen7",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Pogo / Fire",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_736-DOS.php"
+}

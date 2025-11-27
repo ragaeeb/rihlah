@@ -1,0 +1,18 @@
+{
+  "id": "mario-teaches-typing",
+  "title": "Mario Teaches Typing",
+  "description": "Learn to type with Mario! An educational typing game featuring Nintendo's famous plumber.",
+  "author": "Interplay",
+  "year": 1992,
+  "genre": [
+    "Educational"
+  ],
+  "bundle": "mario-teaches-typing-bundle.jsdos",
+  "executable": "MARIO.EXE",
+  "controls": {
+    "Keyboard": "Type the letters shown",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_1254-DOS.php"
+}

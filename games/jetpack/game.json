@@ -1,0 +1,18 @@
+{
+  "id": "jetpack",
+  "title": "Jetpack",
+  "description": "A classic DOS platform game where you collect emeralds while avoiding obstacles. Use your jetpack to fly and phase shifter to tunnel through walls.",
+  "author": "Adept Software",
+  "year": 1993,
+  "genre": ["Action", "Platform"],
+  "bundle": "jetpack-bundle.jsdos",
+  "executable": "jetpack",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Alt": "Jetpack / Phase Shifter",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_511-DOS.php"
+}
+

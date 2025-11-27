@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading... - DOS Games Arcade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <script src="https://js-dos.com/6.22/current/js-dos.js"></script>
+    <link rel="stylesheet" href="https://js-dos.com/6.22/current/js-dos.css">
+    <style>
+        :root {
+            --bg-primary: #0d0d0d;
+            --bg-secondary: #1a1a2e;
+            --accent: #ff2e63;
+            --accent-glow: rgba(255, 46, 99, 0.4);
+            --text-primary: #eaeaea;
+            --text-secondary: #08d9d6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-primary);
+            min-height: 100vh;
+            font-family: 'VT323', monospace;
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid rgba(255, 46, 99, 0.3);
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .game-title-header {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .canvas-wrapper {
+            border: 3px solid var(--accent);
+            box-shadow: 
+                0 0 20px var(--accent-glow),
+                inset 0 0 60px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #dos-canvas {
+            display: block;
+        }
+
+        .controls-panel {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .controls-section {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 46, 99, 0.2);
+        }
+
+        .controls-section h3 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .control-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .control-key {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .control-action {
+            color: #aaa;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 12px 20px;
+            background: transparent;
+            border: 2px solid var(--text-secondary);
+            color: var(--text-secondary);
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: var(--text-secondary);
+            color: var(--bg-primary);
+        }
+
+        .action-btn.primary {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: var(--accent);
+        }
+
+        .error h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            #dos-canvas {
+                width: 100%;
+                max-width: 640px;
+                height: auto;
+                aspect-ratio: 640 / 400;
+            }
+
+            .controls-panel {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .controls-section {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="back-link">← Back to Games</a>
+        <h1 class="game-title-header" id="game-title">Loading...</h1>
+        <div></div>
+    </header>
+
+    <main class="main-content">
+        <div id="loading" class="loading">
+            <p class="loading-text">Loading game...</p>
+        </div>
+
+        <div id="game-container" style="display: none;">
+            <div class="canvas-wrapper">
+                <canvas id="dos-canvas" width="640" height="400"></canvas>
+            </div>
+
+            <div class="controls-panel">
+                <div class="controls-section">
+                    <h3>Controls</h3>
+                    <div id="controls-list">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <div class="controls-section">
+                    <h3>Options</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn primary" onclick="toggleFullscreen()">Fullscreen</button>
+                        <button class="action-btn" onclick="location.reload()">Restart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="error" class="error" style="display: none;">
+            <h2>Game Not Found</h2>
+            <p>The requested game could not be loaded.</p>
+            <br>
+            <a href="index.html" class="action-btn">Back to Games</a>
+        </div>
+    </main>
+
+    <script>
+        let gameConfig = null;
+
+        async function init() {
+            const params = new URLSearchParams(window.location.search);
+            const gameId = params.get('game');
+
+            if (!gameId) {
+                showError();
+                return;
+            }
+
+            try {
+                const response = await fetch(`games/${gameId}/game.json`);
+                if (!response.ok) throw new Error('Game not found');
+                
+                gameConfig = await response.json();
+                document.title = `${gameConfig.title} - DOS Games Arcade`;
+                document.getElementById('game-title').textContent = gameConfig.title;
+                
+                renderControls(gameConfig.controls);
+                loadGame(gameConfig);
+            } catch (error) {
+                console.error('Failed to load game:', error);
+                showError();
+            }
+        }
+
+        function renderControls(controls) {
+            const list = document.getElementById('controls-list');
+            list.innerHTML = Object.entries(controls).map(([key, action]) => `
+                <div class="control-row">
+                    <span class="control-key">${key}</span>
+                    <span class="control-action">${action}</span>
+                </div>
+            `).join('');
+        }
+
+        function loadGame(config) {
+            const canvas = document.getElementById('dos-canvas');
+            const bundlePath = `games/${config.id}/${config.bundle}`;
+
+            Dos(canvas, {
+                wdosboxUrl: "https://js-dos.com/6.22/current/wdosbox.js"
+            }).ready(function(fs, main) {
+                fs.extract(bundlePath).then(function() {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('game-container').style.display = 'block';
+                    main(["-conf", ".jsdos/dosbox.conf"]);
+                }).catch(function(error) {
+                    console.error('Failed to extract game:', error);
+                    showError();
+                });
+            });
+        }
+
+        function showError() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+        }
+
+        function toggleFullscreen() {
+            const canvas = document.getElementById('dos-canvas');
+            if (canvas.requestFullscreen) {
+                canvas.requestFullscreen();
+            } else if (canvas.webkitRequestFullscreen) {
+                canvas.webkitRequestFullscreen();
+            } else if (canvas.msRequestFullscreen) {
+                canvas.msRequestFullscreen();
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
+

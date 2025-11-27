@@ -1,0 +1,21 @@
+{
+  "id": "keen6",
+  "title": "Commander Keen 6: Aliens Ate My Baby Sitter!",
+  "description": "Keen's babysitter has been kidnapped by the Bloogs! Time for another rescue mission.",
+  "author": "id Software",
+  "year": 1991,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "keen6-bundle.jsdos",
+  "executable": "keen6",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Pogo / Fire",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_443-DOS.php"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "keen2",
+  "title": "Commander Keen 2: The Earth Explodes",
+  "description": "Keen must stop the Vorticons from destroying Earth! Episode 2 of the original trilogy.",
+  "author": "id Software",
+  "year": 1990,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "keen2-bundle.jsdos",
+  "executable": "KEEN2.EXE",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Pogo / Fire",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_503-DOS.php"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "keen4",
+  "title": "Commander Keen 4: Secret of the Oracle",
+  "description": "The Goodbye Galaxy saga begins! Keen explores the Shadowlands to find the Oracle.",
+  "author": "id Software",
+  "year": 1991,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "keen4-bundle.jsdos",
+  "executable": "keen4e",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Pogo / Fire",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_411-DOS.php"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "keen1",
+  "title": "Commander Keen 1: Marooned on Mars",
+  "description": "The original Commander Keen! Help 8-year-old genius Billy Blaze escape from Mars.",
+  "author": "id Software",
+  "year": 1990,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "keen1-bundle.jsdos",
+  "executable": "keen1",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Pogo / Fire",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_471-DOS.php"
+}

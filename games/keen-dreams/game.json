@@ -1,0 +1,21 @@
+{
+  "id": "keen-dreams",
+  "title": "Keen Dreams",
+  "description": "Commander Keen in the land of vegetables! A unique side-story in the Keen saga.",
+  "author": "id Software",
+  "year": 1991,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "keen-dreams-bundle.jsdos",
+  "executable": "kdreams",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Throw",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_488-DOS.php"
+}

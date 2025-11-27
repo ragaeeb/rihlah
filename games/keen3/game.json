@@ -1,0 +1,21 @@
+{
+  "id": "keen3",
+  "title": "Commander Keen 3: Keen Must Die!",
+  "description": "The epic conclusion to the Vorticon trilogy. Defeat the Grand Intellect!",
+  "author": "id Software",
+  "year": 1990,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "keen3-bundle.jsdos",
+  "executable": "KEEN3.EXE",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Pogo / Fire",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_513-DOS.php"
+}

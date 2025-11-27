@@ -1,0 +1,20 @@
+{
+  "id": "charlie-the-duck",
+  "title": "Charlie the Duck",
+  "description": "A colorful platformer where you play as Charlie, a duck on an adventure to save his girlfriend.",
+  "author": "Wiering Software",
+  "year": 1996,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "charlie-the-duck-bundle.jsdos",
+  "executable": "START.bat",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Space/Ctrl": "Jump",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_1304-DOS.php"
+}
