@@ -1,5 +1,7 @@
 # 🎮 DOS Games Arcade
 
+[![wakatime](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/8046d532-52e4-4fbc-bdbb-c809fce69e3c.svg)](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/8046d532-52e4-4fbc-bdbb-c809fce69e3c)
+
 A static web application that lets you play classic DOS games directly in your browser. Built with [js-dos](https://js-dos.com/) - a DOSBox emulator compiled to JavaScript.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
@@ -20,7 +22,7 @@ A static web application that lets you play classic DOS games directly in your b
 git clone https://github.com/ragaeeb/rihlah.git
 cd rihlah
 
-# Install dependencies (requires Bun >= 1.3.2)
+# Install dependencies (requires Bun >= 1.3.3)
 bun install
 
 # Start local server
