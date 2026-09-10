@@ -1,0 +1,20 @@
+{
+  "id": "dangerous-dave",
+  "title": "Dangerous Dave",
+  "description": "John Romero's early platformer. Climb, jump, and grab the cup to finish each level.",
+  "author": "Softdisk",
+  "year": 1988,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "dangerous-dave-bundle.jsdos",
+  "executable": "DAVE.EXE",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Alt": "Jump",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_480-DOS.php"
+}

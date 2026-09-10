@@ -1,0 +1,21 @@
+{
+  "id": "prince-of-persia",
+  "title": "Prince of Persia",
+  "description": "Rotoscoped platforming classic. Survive the dungeon, dodge traps, beat the clock.",
+  "author": "Broderbund",
+  "year": 1989,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "prince-of-persia-bundle.jsdos",
+  "executable": "prince megahit",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Shift": "Careful step",
+    "Space": "Sword",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_102-DOS.php"
+}

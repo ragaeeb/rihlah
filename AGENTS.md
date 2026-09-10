@@ -39,7 +39,7 @@ rihlah/
 │   └── js-dos/                # Player JS/CSS + DOSBox wasm
 │
 ├── scripts/
-│   ├── add-game.ts            # Interactive CLI to add a new game
+│   ├── add-game.ts            # bun run add-game <retrogames url or id>
 │   ├── build-bundles.ts      # Batch rebuild all bundles from downloads/
 │   ├── vendor-jsdos.ts      # Copy js-dos player + DOSBox wasm into vendor/
 │   └── smoke-games.ts       # Browser harness: every game must paint a DOS frame
@@ -91,12 +91,17 @@ To enable music, change `oplmode=none` to `oplmode=auto`.
 
 ### Adding a New DOS Game
 
-**Method 1: Use the interactive script**
+The site is static, so games are added in this repo, then deployed.
+
 ```bash
-bun run add-game
+bun run add-game 480
+bun run add-game https://www.retrogames.cz/play_480-DOS.php
+bun run add-game 480 --id dangerous-dave --exe DAVE.EXE --force
 ```
 
-**Method 2: Manual process**
+That downloads the RetroGames.cz zip into `downloads/`, writes `games/{id}/`, and updates `src/games.json`. Then `bun run dev`.
+
+**Manual process** (if the game is not on RetroGames.cz):
 1. Download the game ZIP from a source like RetroGames.cz
 2. Determine if it's a disk image or direct files:
    ```bash

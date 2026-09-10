@@ -71,15 +71,20 @@ dos-games-arcade/
 
 ## 🎯 Adding a New Game
 
-### Method 1: Using the Helper Script
+The arcade is a static site, so a visitor cannot install games onto GitHub Pages. From this repo:
 
 ```bash
-bun run add-game
+bun run add-game 480
+bun run add-game https://www.retrogames.cz/play_480-DOS.php
 ```
 
-Follow the prompts to enter game details.
+Optional flags: `--id`, `--exe`, `--size 512,8,2,384`, `--force`.
 
-### Method 2: Manual Setup
+That downloads the zip, builds the js-dos bundle, and lists the game on the launcher. Check the game's license before committing.
+
+### Manual setup
+
+If the game is not on RetroGames.cz:
 
 #### Step 1: Get the Game Files
 

@@ -301,7 +301,9 @@ async function main(): Promise<void> {
   mkdirSync(shotDir, { recursive: true });
 
   const catalog = (await Bun.file(join(ROOT, "src/games.json")).json()) as { games: GameSummary[] };
-  const games = only ? catalog.games.filter((g) => g.id === only) : catalog.games;
+  const games = only
+    ? catalog.games.filter((g) => only.split(",").includes(g.id))
+    : catalog.games;
   if (games.length === 0) throw new Error(only ? `No game named ${only}` : "No games in src/games.json");
 
   const server = await ensureServer();

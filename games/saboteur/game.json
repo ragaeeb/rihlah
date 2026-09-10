@@ -1,0 +1,21 @@
+{
+  "id": "saboteur",
+  "title": "Saboteur",
+  "description": "Infiltrate an enemy complex as a ninja: punch, sneak, and plant the bomb.",
+  "author": "Durell Software",
+  "year": 1986,
+  "genre": [
+    "Action",
+    "Adventure"
+  ],
+  "bundle": "saboteur-bundle.jsdos",
+  "executable": "SABOTEUR.EXE",
+  "controls": {
+    "A": "Yes, VGA",
+    "Arrow Keys": "Move",
+    "Space": "Punch / Use",
+    "Esc": "Quit"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_490-DOS.php"
+}

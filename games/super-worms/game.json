@@ -1,0 +1,18 @@
+{
+  "id": "super-worms",
+  "title": "Super Worms",
+  "description": "Arcade snake from the Charlie the Duck team. Eat, grow, and don't bite yourself.",
+  "author": "Wiering Software",
+  "year": 1995,
+  "genre": [
+    "Arcade"
+  ],
+  "bundle": "super-worms-bundle.jsdos",
+  "executable": "SW",
+  "controls": {
+    "Arrow Keys": "Steer",
+    "Esc": "Quit"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_1846-DOS.php"
+}

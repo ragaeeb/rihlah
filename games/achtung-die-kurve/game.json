@@ -1,0 +1,19 @@
+{
+  "id": "achtung-die-kurve",
+  "title": "Achtung, die Kurve!",
+  "description": "Fast freeware snake-line game. Don't hit a wall or another player's trail.",
+  "author": "Fender",
+  "year": 1995,
+  "genre": [
+    "Arcade",
+    "Multiplayer"
+  ],
+  "bundle": "achtung-die-kurve-bundle.jsdos",
+  "executable": "ACHTUNG.EXE",
+  "controls": {
+    "Left/Right": "Steer",
+    "Esc": "Quit"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_1285-DOS.php"
+}

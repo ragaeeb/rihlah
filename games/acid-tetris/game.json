@@ -1,0 +1,18 @@
+{
+  "id": "acid-tetris",
+  "title": "Acid Tetris",
+  "description": "A psychedelic Tetris variant with warped visuals and classic stacking.",
+  "author": "Irec Software",
+  "year": 1996,
+  "genre": [
+    "Puzzle"
+  ],
+  "bundle": "acid-tetris-bundle.jsdos",
+  "executable": "atet.exe",
+  "controls": {
+    "Arrow Keys": "Move / Rotate",
+    "Esc": "Quit"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_1836-DOS.php"
+}

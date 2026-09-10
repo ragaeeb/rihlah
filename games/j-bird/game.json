@@ -1,0 +1,18 @@
+{
+  "id": "j-bird",
+  "title": "J-Bird",
+  "description": "A Q*bert-style arcade climber: hop pyramids and avoid the chasing creatures.",
+  "author": "Orion Software",
+  "year": 1983,
+  "genre": [
+    "Arcade"
+  ],
+  "bundle": "j-bird-bundle.jsdos",
+  "executable": "START.bat",
+  "controls": {
+    "Arrow Keys": "Hop",
+    "Esc": "Quit"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_1028-DOS.php"
+}
