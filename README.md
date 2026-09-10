@@ -23,12 +23,19 @@ git clone https://github.com/ragaeeb/rihlah.git
 cd rihlah
 
 # Install dependencies (requires Bun >= 1.3.3)
+# This also copies js-dos 8 into vendor/js-dos
 bun install
 
 # Start local server
 bun run dev
 
 # Open http://localhost:8080 in your browser
+```
+
+To confirm every bundled game still paints after a js-dos change:
+
+```bash
+bun run smoke -- --label after --compare tmp/smoke/before.json
 ```
 
 Or simply open `index.html` in a browser (some features may require a server due to CORS).

@@ -22,6 +22,7 @@ temp/
 
 # Build artifacts (if any)
 dist/
+vendor/
 
 # Downloaded game files (bundles are in games/)
 downloads/

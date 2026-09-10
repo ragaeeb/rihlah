@@ -1,4 +1,5 @@
 node_modules
 .next
+vendor/js-dos
 public/js-dos
 public/games/*.jsdos

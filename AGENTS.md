@@ -7,7 +7,7 @@ This document is for AI agents working with this codebase. It explains the proje
 **Rihlah** is a static web application that runs classic DOS games in the browser using [js-dos](https://js-dos.com/) (DOSBox compiled to WebAssembly). It's designed to be deployed on GitHub Pages with zero backend requirements.
 
 ### Key Technologies
-- **js-dos 6.22**: Browser-based DOS emulator
+- **js-dos 8.4.1**: Browser-based DOS emulator (npm package, vendored into `vendor/js-dos`)
 - **Bun**: Package manager and TypeScript runtime (v1.3.2+)
 - **TypeScript**: ESNext target for scripts
 - **Static HTML/CSS/JS**: No framework, vanilla frontend
@@ -18,9 +18,10 @@ This document is for AI agents working with this codebase. It explains the proje
 rihlah/
 ├── index.html                 # Game launcher/arcade homepage
 ├── play.html                  # Game player page (loads games via ?game=id)
+├── serve.json                 # Local static-server config (keeps .html + query strings)
 ├── package.json               # Bun config, scripts
 ├── tsconfig.json              # TypeScript config (ESNext)
-├── bun.lockb                  # Bun lockfile
+├── bun.lock                   # Bun lockfile
 ├── README.md                  # User documentation
 ├── AGENTS.md                  # This file (AI agent guide)
 ├── LICENSE                    # MIT License
@@ -34,9 +35,14 @@ rihlah/
 │       ├── game.json          # Game metadata (title, controls, etc.)
 │       └── {game-id}-bundle.jsdos  # js-dos bundle (ZIP with game + config)
 │
+├── vendor/                    # (gitignored) generated from npm
+│   └── js-dos/                # Player JS/CSS + DOSBox wasm
+│
 ├── scripts/
 │   ├── add-game.ts            # Interactive CLI to add a new game
-│   └── build-bundles.ts       # Batch rebuild all bundles from downloads/
+│   ├── build-bundles.ts      # Batch rebuild all bundles from downloads/
+│   ├── vendor-jsdos.ts      # Copy js-dos player + DOSBox wasm into vendor/
+│   └── smoke-games.ts       # Browser harness: every game must paint a DOS frame
 │
 ├── downloads/                 # (gitignored) Raw game ZIPs from sources
 │
@@ -149,8 +155,14 @@ bun run dev
 # Open http://localhost:8080
 ```
 
+### Smoke-testing games
+Loads every game in Chromium and checks that the DOS canvas paints (not a black/error screen):
+```bash
+bun run smoke -- --label after --compare tmp/smoke/before.json
+```
+
 ### Deploying
-Push to `main` branch. GitHub Actions will deploy to Pages automatically.
+Push to `main` branch. GitHub Actions installs js-dos, copies `vendor/js-dos`, and deploys to Pages.
 
 ## Important Patterns
 
@@ -226,7 +238,7 @@ play.html loads games/keen1/game.json
          ├─ Gets controls: { "Arrow Keys": "Move", ... }
          │
          ▼
-js-dos extracts games/keen1/keen1-bundle.jsdos
+js-dos 8 player (vendor/js-dos) runs the bundle
          │
          ├─ Reads .jsdos/dosbox.conf
          ├─ Mounts keen1.img as C:
