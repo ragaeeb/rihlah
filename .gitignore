@@ -24,9 +24,15 @@ temp/
 dist/
 vendor/
 
-# Downloaded game files (bundles are in games/)
+# Downloaded game files and js-dos bundles (uploaded to R2 on deploy)
 downloads/
 temp/
+*.jsdos
+
+# Wrangler
+.wrangler/
+public/
+worker-configuration.d.ts
 
 # Environment files
 .env

@@ -239,7 +239,8 @@ async function main(): Promise<void> {
 
   await buildBundle(game);
   await upsertGameJson(game);
-  console.log(`\nPlay: bun run dev  →  http://localhost:8080/play.html?game=${id}`);
+  console.log(`\nLocal:   bun run dev   →  http://localhost:8080/play.html?game=${id}`);
+  console.log(`Publish: bun run deploy`);
 }
 
 if (import.meta.main) {

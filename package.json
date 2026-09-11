@@ -2,12 +2,13 @@
   "author": "Ragaeeb Haq",
   "name": "rihlah",
   "version": "1.0.0",
-  "description": "A static web app to play classic DOS games in the browser using js-dos",
+  "description": "Play classic DOS games in the browser (js-dos on Cloudflare Workers + R2)",
   "type": "module",
   "scripts": {
-    "start": "bun run serve",
+    "start": "bun run dev",
+    "dev": "bun run scripts/deploy.ts --dev",
     "serve": "bunx serve -l 8080",
-    "dev": "bunx serve -l 8080",
+    "deploy": "bun run scripts/deploy.ts",
     "add-game": "bun run scripts/add-game.ts",
     "build-bundles": "bun run scripts/build-bundles.ts",
     "vendor": "bun run scripts/vendor-jsdos.ts",
@@ -28,7 +29,8 @@
     "@biomejs/biome": "^2.5.13",
     "@types/bun": "^1.4.2",
     "playwright": "^1.63.0",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "wrangler": "^4.131.0"
   },
   "repository": {
     "type": "git",

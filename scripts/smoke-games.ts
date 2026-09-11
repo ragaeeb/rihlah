@@ -120,14 +120,14 @@ async function ensureServer(): Promise<ReturnType<typeof Bun.spawn> | null> {
     // start one
   }
 
-  const proc = Bun.spawn(["bun", "x", "serve", "-l", "8080"], {
+  const proc = Bun.spawn(["bun", "run", "scripts/deploy.ts", "--dev"], {
     cwd: ROOT,
     stdout: "pipe",
     stderr: "pipe",
   });
 
-  for (let i = 0; i < 40; i++) {
-    await Bun.sleep(150);
+  for (let i = 0; i < 120; i++) {
+    await Bun.sleep(500);
     try {
       const res = await fetch(BASE, { signal: AbortSignal.timeout(500) });
       if (res.ok) return proc;
@@ -137,7 +137,7 @@ async function ensureServer(): Promise<ReturnType<typeof Bun.spawn> | null> {
   }
 
   proc.kill();
-  throw new Error(`Could not start static server on ${BASE}`);
+  throw new Error(`Could not start wrangler on ${BASE}`);
 }
 
 async function launchBrowser(): Promise<Browser> {
