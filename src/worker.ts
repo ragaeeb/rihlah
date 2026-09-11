@@ -6,8 +6,13 @@ function mime(key: string): string {
   return "application/octet-stream";
 }
 
-function objectKey(pathname: string): string | null {
-  const key = decodeURIComponent(pathname).replace(/^\/+/, "");
+function objectKey(pathname: string): string | null | "invalid" {
+  let key: string;
+  try {
+    key = decodeURIComponent(pathname).replace(/^\/+/, "");
+  } catch {
+    return "invalid";
+  }
   if (!key || key.includes("..") || key.startsWith("/")) return null;
   if (key !== "src/games.json" && !key.startsWith("games/")) return null;
   return key;
@@ -52,6 +57,7 @@ export default {
   async fetch(request, env): Promise<Response> {
     const url = new URL(request.url);
     const key = objectKey(url.pathname);
+    if (key === "invalid") return new Response("bad request", { status: 400 });
     if (key) return fromR2(env.GAMES, key, request);
     if (url.pathname === "/") {
       return env.ASSETS.fetch(new URL("/index.html", url));

@@ -38,9 +38,9 @@ bunx wrangler login   # once
 bun run deploy
 ```
 
-That is the whole first-time setup: it creates the `rihlah-games` R2 bucket if needed, uploads catalog + `.jsdos` bundles, and deploys the Worker. Open the `*.workers.dev` URL Wrangler prints.
+That is the whole first-time setup: it creates the `rihlah-games` R2 bucket if needed, uploads catalog + `.jsdos` bundles, and deploys the Worker to **https://retro.al-iyaal.club**.
 
-For GitHub Actions, add repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. CI deploys the Worker; it only re-uploads games if `.jsdos` files are present in the checkout.
+For GitHub Actions, add repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. CI always uploads `src/games.json` and each `games/*/game.json`; it skips only missing `.jsdos` bundle files.
 
 `.jsdos` bundles are gitignored. Keep them locally (or rebuild with `bun run add-game` / `bun run build-bundles`) and publish with `bun run deploy`.
 
@@ -75,7 +75,7 @@ bun run deploy
 
 Optional flags: `--id`, `--exe`, `--size 512,8,2,384`, `--force`.
 
-That downloads the zip, builds the js-dos bundle, and lists the game on the launcher. Check the game's license before committing.
+That downloads the zip, builds the js-dos bundle, and lists the game on the launcher. Check the game's license before publishing.
 
 ### Manual setup
 
@@ -201,11 +201,7 @@ Add your game to `src/games.json`:
 ```bash
 bun run dev
 # Open http://localhost:8080 and test your game
-
-# When ready, commit and push
-git add .
-git commit -m "Add My Game"
-git push
+bun run deploy
 ```
 
 ## 🔧 DOSBox Configuration

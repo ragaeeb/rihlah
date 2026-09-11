@@ -4,7 +4,7 @@ This document is for AI agents working with this codebase. It explains the proje
 
 ## Project Overview
 
-**Rihlah** is a Cloudflare Worker that runs classic DOS games in the browser using [js-dos](https://js-dos.com/). HTML/js-dos are Worker static assets. Game catalogs and `.jsdos` bundles are stored in **R2** (`rihlah-games`), not committed.
+**Rihlah** is a Cloudflare Worker that runs classic DOS games in the browser using [js-dos](https://js-dos.com/). Production: **https://retro.al-iyaal.club**. HTML/js-dos are Worker static assets (`/` serves `index.html`). Game catalogs and `.jsdos` bundles are stored in **R2** (`rihlah-games`), not committed. Custom domain is `retro.al-iyaal.club` in `wrangler.jsonc`.
 
 ### Key Technologies
 - **js-dos 8.4.1**: Browser-based DOS emulator (npm package, vendored into `vendor/js-dos`)
@@ -156,9 +156,9 @@ bun run smoke -- --label after --compare tmp/smoke/before.json
 bun run deploy
 ```
 
-Creates `rihlah-games` if missing, uploads `src/games.json` + each `games/{id}` bundle, deploys the Worker. No extra `wrangler r2` commands.
+Creates `rihlah-games` if missing, uploads `src/games.json` + each `games/{id}` metadata (and bundles when present), deploys the Worker to https://retro.al-iyaal.club. No extra `wrangler r2` commands.
 
-Push to `main` also deploys via GitHub Actions (`CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`). CI skips R2 sync when no `.jsdos` files are in the checkout.
+Push to `main` also deploys via GitHub Actions (`CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`). CI always uploads the catalog and `game.json` files; it skips only missing `.jsdos` bundle uploads.
 
 ## Important Patterns
 
@@ -167,7 +167,7 @@ Push to `main` also deploys via GitHub Actions (`CLOUDFLARE_API_TOKEN` + `CLOUDF
 - Used as: folder name, bundle name, URL parameter
 
 ### URL Structure
-- Launcher: `/index.html` or `/`
+- Launcher: `https://retro.al-iyaal.club/` (local: `http://localhost:8080/`)
 - Game player: `/play.html?game={game-id}`
 
 ### DOSBox Config Template

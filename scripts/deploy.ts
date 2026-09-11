@@ -61,26 +61,26 @@ function uploads(): { key: string; file: string }[] {
   if (!existsSync(gamesDir)) return out;
 
   for (const id of readdirSync(gamesDir)) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) continue;
     const dir = join(gamesDir, id);
     const meta = join(dir, "game.json");
     const bundle = join(dir, `${id}-bundle.jsdos`);
-    if (!existsSync(meta) || !existsSync(bundle)) continue;
-    out.push({ key: `games/${id}/game.json`, file: meta });
-    out.push({ key: `games/${id}/${id}-bundle.jsdos`, file: bundle });
+    if (existsSync(meta)) out.push({ key: `games/${id}/game.json`, file: meta });
+    if (existsSync(bundle)) out.push({ key: `games/${id}/${id}-bundle.jsdos`, file: bundle });
   }
   return out;
 }
 
 async function syncR2(): Promise<void> {
   const files = uploads();
-  const bundles = files.filter((f) => f.file.endsWith(".jsdos"));
-  if (!DEV && bundles.length === 0) {
-    console.log("No local .jsdos bundles; skipping R2 sync (Worker-only deploy)");
-    return;
-  }
   if (files.length === 0) {
     console.log("Nothing to upload to R2");
     return;
+  }
+
+  const bundles = files.filter((f) => f.file.endsWith(".jsdos"));
+  if (bundles.length === 0) {
+    console.log("No local .jsdos bundles; uploading catalog/metadata only");
   }
 
   const where = DEV ? "--local" : "--remote";

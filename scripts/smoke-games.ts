@@ -307,10 +307,11 @@ async function main(): Promise<void> {
   if (games.length === 0) throw new Error(only ? `No game named ${only}` : "No games in src/games.json");
 
   const server = await ensureServer();
-  const browser = await launchBrowser();
+  let browser: Browser | null = null;
   const results: GameResult[] = [];
 
   try {
+    browser = await launchBrowser();
     for (const game of games) {
       const page = await browser.newPage({ viewport: { width: 1100, height: 800 } });
       process.stdout.write(`${game.id}... `);
@@ -320,7 +321,7 @@ async function main(): Promise<void> {
       await page.close();
     }
   } finally {
-    await browser.close();
+    await browser?.close();
     server?.kill();
   }
 
