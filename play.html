@@ -7,8 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-    <script src="https://js-dos.com/6.22/current/js-dos.js"></script>
-    <link rel="stylesheet" href="https://js-dos.com/6.22/current/js-dos.css">
+    <script src="vendor/js-dos/js-dos.js"></script>
+    <link rel="stylesheet" href="vendor/js-dos/js-dos.css">
     <style>
         :root {
             --bg-primary: #0d0d0d;
@@ -84,8 +84,11 @@
             background: #000;
         }
 
-        #dos-canvas {
+        #dos {
             display: block;
+            width: 640px;
+            height: 400px;
+            background: #000;
         }
 
         .controls-panel {
@@ -196,7 +199,7 @@
                 text-align: center;
             }
 
-            #dos-canvas {
+            #dos {
                 width: 100%;
                 max-width: 640px;
                 height: auto;
@@ -228,7 +231,7 @@
 
         <div id="game-container" style="display: none;">
             <div class="canvas-wrapper">
-                <canvas id="dos-canvas" width="640" height="400"></canvas>
+                <div id="dos"></div>
             </div>
 
             <div class="controls-panel">
@@ -259,6 +262,7 @@
 
     <script>
         let gameConfig = null;
+        let player = null;
 
         async function init() {
             const params = new URLSearchParams(window.location.search);
@@ -296,21 +300,49 @@
         }
 
         function loadGame(config) {
-            const canvas = document.getElementById('dos-canvas');
+            const el = document.getElementById('dos');
             const bundlePath = `games/${config.id}/${config.bundle}`;
 
-            Dos(canvas, {
-                wdosboxUrl: "https://js-dos.com/6.22/current/wdosbox.js"
-            }).ready(function(fs, main) {
-                fs.extract(bundlePath).then(function() {
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('game-container').style.display = 'block';
-                    main(["-conf", ".jsdos/dosbox.conf"]);
-                }).catch(function(error) {
-                    console.error('Failed to extract game:', error);
-                    showError();
-                });
+            window.__rihlah = {
+                status: 'loading',
+                events: [],
+                gameId: config.id,
+                version: null
+            };
+
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('game-container').style.display = 'block';
+
+            if (typeof Dos !== 'function') {
+                console.error('js-dos failed to load');
+                showError();
+                return;
+            }
+
+            player = Dos(el, {
+                url: bundlePath,
+                autoStart: true,
+                kiosk: true,
+                theme: 'dark',
+                backend: 'dosbox',
+                backendLocked: true,
+                workerThread: false,
+                mouseCapture: false,
+                imageRendering: 'pixelated',
+                renderAspect: 'Fit',
+                pathPrefix: 'vendor/js-dos/emulators/',
+                onEvent: function(event) {
+                    window.__rihlah.events.push(event);
+                    if (event === 'emu-ready') {
+                        window.__rihlah.version = player.getVersion();
+                    }
+                    if (event === 'ci-ready') {
+                        window.__rihlah.status = 'ready';
+                        document.body.dataset.rihlah = 'ready';
+                    }
+                }
             });
+            player.setNoCloud(true);
         }
 
         function showError() {
@@ -319,14 +351,7 @@
         }
 
         function toggleFullscreen() {
-            const canvas = document.getElementById('dos-canvas');
-            if (canvas.requestFullscreen) {
-                canvas.requestFullscreen();
-            } else if (canvas.webkitRequestFullscreen) {
-                canvas.webkitRequestFullscreen();
-            } else if (canvas.msRequestFullscreen) {
-                canvas.msRequestFullscreen();
-            }
+            if (player) player.setFullScreen(true);
         }
 
         init();

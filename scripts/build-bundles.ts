@@ -8,7 +8,7 @@ import { existsSync, mkdirSync, writeFileSync, rmSync } from "fs";
 import { join } from "path";
 import { $ } from "bun";
 
-interface GameDefinition {
+export interface GameDefinition {
   id: string;
   title: string;
   description: string;
@@ -244,6 +244,192 @@ const GAMES: GameDefinition[] = [
       "Alt": "Pogo / Fire",
       "Esc": "Menu"
     }
+  },
+  {
+    id: "dangerous-dave",
+    title: "Dangerous Dave",
+    description: "John Romero's early platformer. Climb, jump, and grab the cup to finish each level.",
+    author: "Softdisk",
+    year: 1988,
+    genre: ["Platform", "Action"],
+    zipFile: "DangerousDave.zip",
+    executable: "DAVE.EXE",
+    source: "https://www.retrogames.cz/play_480-DOS.php",
+    controls: {
+      "Arrow Keys": "Move",
+      "Alt": "Jump",
+      "Esc": "Menu"
+    }
+  },
+  {
+    id: "dyna-blaster",
+    title: "Dyna Blaster",
+    description: "The DOS Bomberman: plant bombs, blast walls, and outlast every opponent.",
+    author: "Hudson Soft",
+    year: 1990,
+    genre: ["Action", "Puzzle"],
+    zipFile: "dyna.zip",
+    imgFile: "dyna.img",
+    executable: "dyna",
+    imgSize: "512,8,2,384",
+    source: "https://www.retrogames.cz/play_455-DOS.php",
+    controls: {
+      "Arrow Keys": "Move",
+      "Space": "Bomb",
+      "Esc": "Menu"
+    }
+  },
+  {
+    id: "achtung-die-kurve",
+    title: "Achtung, die Kurve!",
+    description: "Fast freeware snake-line game. Don't hit a wall or another player's trail.",
+    author: "Fender",
+    year: 1995,
+    genre: ["Arcade", "Multiplayer"],
+    zipFile: "Achtung.zip",
+    imgFile: "Achtung.img",
+    executable: "ACHTUNG.EXE",
+    imgSize: "512,8,2,384",
+    source: "https://www.retrogames.cz/play_1285-DOS.php",
+    controls: {
+      "Left/Right": "Steer",
+      "Esc": "Quit"
+    }
+  },
+  {
+    id: "j-bird",
+    title: "J-Bird",
+    description: "A Q*bert-style arcade climber: hop pyramids and avoid the chasing creatures.",
+    author: "Orion Software",
+    year: 1983,
+    genre: ["Arcade"],
+    zipFile: "j-bird.zip",
+    executable: "START.bat",
+    source: "https://www.retrogames.cz/play_1028-DOS.php",
+    controls: {
+      "Arrow Keys": "Hop",
+      "Esc": "Quit"
+    }
+  },
+  {
+    id: "pac-gal",
+    title: "Pac-Gal",
+    description: "A Pac-Man clone. Eat dots, dodge ghosts, grab fruit.",
+    author: "Hangsoft",
+    year: 1983,
+    genre: ["Arcade"],
+    zipFile: "Pac-Gal.zip",
+    imgFile: "Pac-Gal.img",
+    executable: "pac-gal.exe",
+    imgSize: "512,8,2,384",
+    source: "https://www.retrogames.cz/play_1572-DOS.php",
+    controls: {
+      "0-30000 then Enter": "Speed (try 1000)",
+      "Arrow Keys": "Move",
+      "Esc": "Quit"
+    }
+  },
+  {
+    id: "saboteur",
+    title: "Saboteur",
+    description: "Infiltrate an enemy complex as a ninja: punch, sneak, and plant the bomb.",
+    author: "Durell Software",
+    year: 1986,
+    genre: ["Action", "Adventure"],
+    zipFile: "saboteur.zip",
+    imgFile: "saboteur.img",
+    executable: "SABOTEUR.EXE",
+    imgSize: "512,8,2,384",
+    source: "https://www.retrogames.cz/play_490-DOS.php",
+    controls: {
+      "A": "Yes, VGA",
+      "Arrow Keys": "Move",
+      "Space": "Punch / Use",
+      "Esc": "Quit"
+    }
+  },
+  {
+    id: "acid-tetris",
+    title: "Acid Tetris",
+    description: "A psychedelic Tetris variant with warped visuals and classic stacking.",
+    author: "Irec Software",
+    year: 1996,
+    genre: ["Puzzle"],
+    zipFile: "AcidTetris.zip",
+    executable: "atet.exe",
+    source: "https://www.retrogames.cz/play_1836-DOS.php",
+    controls: {
+      "Arrow Keys": "Move / Rotate",
+      "Esc": "Quit"
+    }
+  },
+  {
+    id: "prince-of-persia",
+    title: "Prince of Persia",
+    description: "Rotoscoped platforming classic. Survive the dungeon, dodge traps, beat the clock.",
+    author: "Broderbund",
+    year: 1989,
+    genre: ["Platform", "Action"],
+    zipFile: "prince.zip",
+    imgFile: "prince.img",
+    executable: "prince megahit",
+    imgSize: "512,8,2,384",
+    source: "https://www.retrogames.cz/play_102-DOS.php",
+    controls: {
+      "Arrow Keys": "Move",
+      "Shift": "Careful step",
+      "Space": "Sword",
+      "Esc": "Menu"
+    }
+  },
+  {
+    id: "super-worms",
+    title: "Super Worms",
+    description: "Arcade snake from the Charlie the Duck team. Eat, grow, and don't bite yourself.",
+    author: "Wiering Software",
+    year: 1995,
+    genre: ["Arcade"],
+    zipFile: "Super_Worms.zip",
+    executable: "SW",
+    source: "https://www.retrogames.cz/play_1846-DOS.php",
+    controls: {
+      "Arrow Keys": "Steer",
+      "Esc": "Quit"
+    }
+  },
+  {
+    id: "dark-ages",
+    title: "Dark Ages",
+    description: "Apogee shareware platformer. Three episodes of jumping, shooting, and exploring.",
+    author: "Apogee Software",
+    year: 1991,
+    genre: ["Platform", "Action"],
+    zipFile: "DarkAges.zip",
+    executable: "DA1",
+    source: "https://www.retrogames.cz/play_1402-DOS.php",
+    controls: {
+      "Arrow Keys": "Move",
+      "Ctrl": "Jump",
+      "Alt": "Fire",
+      "Esc": "Menu"
+    }
+  },
+  {
+    id: "wolfenstein-3d",
+    title: "Wolfenstein 3D",
+    description: "The original first-person shooter. Fight through Castle Wolfenstein as B.J. Blazkowicz.",
+    author: "id Software",
+    year: 1992,
+    genre: ["Shooter", "Action"],
+    zipFile: "Wolf3D.zip",
+    executable: "WOLF3D",
+    source: "https://www.retrogames.cz/play_408-DOS.php",
+    controls: {
+      "Arrow Keys": "Move",
+      "Ctrl": "Fire",
+      "Space": "Open door",
+      "Esc": "Menu"
+    }
   }
 ];
 
@@ -336,7 +522,7 @@ ${autoexec}
 `;
 }
 
-async function buildBundle(game: GameDefinition): Promise<void> {
+export async function buildBundle(game: GameDefinition): Promise<void> {
   const projectRoot = join(import.meta.dir, "..");
   const downloadsDir = join(projectRoot, "downloads");
   const gamesDir = join(projectRoot, "games");
@@ -399,34 +585,44 @@ async function buildBundle(game: GameDefinition): Promise<void> {
   console.log(`  ✅ Created: games/${game.id}/${game.id}-bundle.jsdos`);
 }
 
-async function updateGamesJson(): Promise<void> {
+function catalogEntry(game: GameDefinition) {
+  return {
+    id: game.id,
+    title: game.title,
+    description: game.description,
+    year: game.year,
+    genre: game.genre,
+  };
+}
+
+export async function upsertGameJson(game: GameDefinition): Promise<void> {
   const projectRoot = join(import.meta.dir, "..");
   const gamesJsonPath = join(projectRoot, "src", "games.json");
-
-  // Read existing games.json
   const existingData = await Bun.file(gamesJsonPath).json();
-  const existingIds = new Set(existingData.games.map((g: { id: string }) => g.id));
+  const index = existingData.games.findIndex((g: { id: string }) => g.id === game.id);
+  const entry = catalogEntry(game);
 
-  // Add new games
-  for (const game of GAMES) {
-    if (!existingIds.has(game.id)) {
-      existingData.games.push({
-        id: game.id,
-        title: game.title,
-        description: game.description,
-        year: game.year,
-        genre: game.genre
-      });
-      console.log(`  ➕ Added ${game.title} to games.json`);
-    }
+  if (index >= 0) {
+    existingData.games[index] = entry;
+    console.log(`  ♻️  Updated ${game.title} in games.json`);
+  } else {
+    existingData.games.push(entry);
+    console.log(`  ➕ Added ${game.title} to games.json`);
   }
 
-  // Sort by title
-  existingData.games.sort((a: { title: string }, b: { title: string }) => 
-    a.title.localeCompare(b.title)
+  existingData.games.sort((a: { title: string }, b: { title: string }) =>
+    a.title.localeCompare(b.title),
   );
+  writeFileSync(gamesJsonPath, `${JSON.stringify(existingData, null, 2)}\n`);
+}
 
-  writeFileSync(gamesJsonPath, JSON.stringify(existingData, null, 2));
+async function updateGamesJson(): Promise<void> {
+  const projectRoot = join(import.meta.dir, "..");
+  const existingData = await Bun.file(join(projectRoot, "src", "games.json")).json();
+  const existingIds = new Set(existingData.games.map((g: { id: string }) => g.id));
+  for (const game of GAMES) {
+    if (!existingIds.has(game.id)) await upsertGameJson(game);
+  }
 }
 
 async function main(): Promise<void> {
@@ -461,5 +657,7 @@ async function main(): Promise<void> {
   console.log("and change 'oplmode=none' to 'oplmode=auto'");
 }
 
-main().catch(console.error);
+if (import.meta.main) {
+  main().catch(console.error);
+}
 

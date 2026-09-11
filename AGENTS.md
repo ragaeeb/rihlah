@@ -4,13 +4,14 @@ This document is for AI agents working with this codebase. It explains the proje
 
 ## Project Overview
 
-**Rihlah** is a static web application that runs classic DOS games in the browser using [js-dos](https://js-dos.com/) (DOSBox compiled to WebAssembly). It's designed to be deployed on GitHub Pages with zero backend requirements.
+**Rihlah** is a Cloudflare Worker that runs classic DOS games in the browser using [js-dos](https://js-dos.com/). Production: **https://retro.al-iyaal.club**. HTML/js-dos are Worker static assets (`/` serves `index.html`). Game catalogs and `.jsdos` bundles are stored in **R2** (`rihlah-games`), not committed. Custom domain is `retro.al-iyaal.club` in `wrangler.jsonc`.
 
 ### Key Technologies
-- **js-dos 6.22**: Browser-based DOS emulator
+- **js-dos 8.4.1**: Browser-based DOS emulator (npm package, vendored into `vendor/js-dos`)
 - **Bun**: Package manager and TypeScript runtime (v1.3.2+)
-- **TypeScript**: ESNext target for scripts
-- **Static HTML/CSS/JS**: No framework, vanilla frontend
+- **Cloudflare Workers + R2**: Hosting and game object storage
+- **Wrangler**: `bun run deploy` creates the bucket and deploys
+- **Static HTML/CSS/JS**: No frontend framework
 
 ## File Structure
 
@@ -18,31 +19,18 @@ This document is for AI agents working with this codebase. It explains the proje
 rihlah/
 ├── index.html                 # Game launcher/arcade homepage
 ├── play.html                  # Game player page (loads games via ?game=id)
-├── package.json               # Bun config, scripts
-├── tsconfig.json              # TypeScript config (ESNext)
-├── bun.lockb                  # Bun lockfile
-├── README.md                  # User documentation
-├── AGENTS.md                  # This file (AI agent guide)
-├── LICENSE                    # MIT License
-├── .gitignore                 # Git ignore rules
-│
+├── wrangler.jsonc            # Worker name, assets, R2 binding
 ├── src/
-│   └── games.json             # Master list of all games (for launcher UI)
-│
-├── games/
-│   └── {game-id}/             # One folder per game
-│       ├── game.json          # Game metadata (title, controls, etc.)
-│       └── {game-id}-bundle.jsdos  # js-dos bundle (ZIP with game + config)
-│
+│   ├── worker.ts             # R2 for /games/* and /src/games.json; else assets
+│   └── games.json             # Catalog (uploaded to R2 on deploy)
+├── games/{game-id}/          # Local working copy; *.jsdos gitignored
 ├── scripts/
-│   ├── add-game.ts            # Interactive CLI to add a new game
-│   └── build-bundles.ts       # Batch rebuild all bundles from downloads/
-│
-├── downloads/                 # (gitignored) Raw game ZIPs from sources
-│
-└── .github/
-    └── workflows/
-        └── deploy.yml         # GitHub Pages deployment (on push to main)
+│   ├── deploy.ts             # bun run deploy | bun run dev
+│   ├── add-game.ts           # bun run add-game <retrogames url or id>
+│   ├── build-bundles.ts
+│   ├── vendor-jsdos.ts
+│   └── smoke-games.ts
+└── .github/workflows/deploy.yml
 ```
 
 ## Core Concepts
@@ -85,12 +73,18 @@ To enable music, change `oplmode=none` to `oplmode=auto`.
 
 ### Adding a New DOS Game
 
-**Method 1: Use the interactive script**
+The Worker reads games from R2. Add locally, then publish:
+
 ```bash
-bun run add-game
+bun run add-game 480
+bun run add-game https://www.retrogames.cz/play_480-DOS.php
+bun run add-game 480 --id dangerous-dave --exe DAVE.EXE --force
+bun run deploy
 ```
 
-**Method 2: Manual process**
+That downloads the RetroGames.cz zip into `downloads/`, writes `games/{id}/`, and updates `src/games.json`. `bun run deploy` uploads those files to R2.
+
+**Manual process** (if the game is not on RetroGames.cz):
 1. Download the game ZIP from a source like RetroGames.cz
 2. Determine if it's a disk image or direct files:
    ```bash
@@ -149,8 +143,22 @@ bun run dev
 # Open http://localhost:8080
 ```
 
+Same Worker + R2 path as production (Wrangler local R2).
+
+### Smoke-testing games
+Loads every game in Chromium and checks that the DOS canvas paints (not a black/error screen):
+```bash
+bun run smoke -- --label after --compare tmp/smoke/before.json
+```
+
 ### Deploying
-Push to `main` branch. GitHub Actions will deploy to Pages automatically.
+```bash
+bun run deploy
+```
+
+Creates `rihlah-games` if missing, uploads `src/games.json` + each `games/{id}` metadata (and bundles when present), deploys the Worker to https://retro.al-iyaal.club. No extra `wrangler r2` commands.
+
+Push to `main` also deploys via GitHub Actions (`CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`). CI always uploads the catalog and `game.json` files; it skips only missing `.jsdos` bundle uploads.
 
 ## Important Patterns
 
@@ -159,7 +167,7 @@ Push to `main` branch. GitHub Actions will deploy to Pages automatically.
 - Used as: folder name, bundle name, URL parameter
 
 ### URL Structure
-- Launcher: `/index.html` or `/`
+- Launcher: `https://retro.al-iyaal.club/` (local: `http://localhost:8080/`)
 - Game player: `/play.html?game={game-id}`
 
 ### DOSBox Config Template
@@ -220,13 +228,13 @@ These would require significant architecture changes to support.
 User visits /play.html?game=keen1
          │
          ▼
-play.html loads games/keen1/game.json
+play.html loads /games/keen1/game.json  (Worker → R2)
          │
          ├─ Gets bundle path: "keen1-bundle.jsdos"
          ├─ Gets controls: { "Arrow Keys": "Move", ... }
          │
          ▼
-js-dos extracts games/keen1/keen1-bundle.jsdos
+js-dos 8 player (vendor/js-dos) runs the bundle
          │
          ├─ Reads .jsdos/dosbox.conf
          ├─ Mounts keen1.img as C:

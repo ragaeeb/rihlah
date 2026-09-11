@@ -1,0 +1,19 @@
+{
+  "id": "pac-gal",
+  "title": "Pac-Gal",
+  "description": "A Pac-Man clone. Eat dots, dodge ghosts, grab fruit.",
+  "author": "Hangsoft",
+  "year": 1983,
+  "genre": [
+    "Arcade"
+  ],
+  "bundle": "pac-gal-bundle.jsdos",
+  "executable": "pac-gal.exe",
+  "controls": {
+    "0-30000 then Enter": "Speed (try 1000)",
+    "Arrow Keys": "Move",
+    "Esc": "Quit"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_1572-DOS.php"
+}

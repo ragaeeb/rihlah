@@ -1,0 +1,21 @@
+{
+  "id": "wolfenstein-3d",
+  "title": "Wolfenstein 3D",
+  "description": "The original first-person shooter. Fight through Castle Wolfenstein as B.J. Blazkowicz.",
+  "author": "id Software",
+  "year": 1992,
+  "genre": [
+    "Shooter",
+    "Action"
+  ],
+  "bundle": "wolfenstein-3d-bundle.jsdos",
+  "executable": "WOLF3D",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Fire",
+    "Space": "Open door",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_408-DOS.php"
+}

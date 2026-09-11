@@ -7,12 +7,10 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "declaration": true,
-    "outDir": "./dist",
-    "rootDir": "./scripts",
+    "noEmit": true,
     "types": ["bun-types"],
     "lib": ["ESNext"]
   },
-  "include": ["scripts/**/*.ts"],
+  "include": ["scripts/**/*.ts", "src/worker.ts", "worker-configuration.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

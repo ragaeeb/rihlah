@@ -1,0 +1,20 @@
+{
+  "id": "dyna-blaster",
+  "title": "Dyna Blaster",
+  "description": "The DOS Bomberman: plant bombs, blast walls, and outlast every opponent.",
+  "author": "Hudson Soft",
+  "year": 1990,
+  "genre": [
+    "Action",
+    "Puzzle"
+  ],
+  "bundle": "dyna-blaster-bundle.jsdos",
+  "executable": "dyna",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Space": "Bomb",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_455-DOS.php"
+}

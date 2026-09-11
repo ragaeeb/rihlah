@@ -1,4 +1,4 @@
 node_modules
 .next
-public/js-dos
-public/games/*.jsdos
+vendor/js-dos
+public/

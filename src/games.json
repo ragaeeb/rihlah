@@ -1,6 +1,25 @@
 {
   "games": [
     {
+      "id": "achtung-die-kurve",
+      "title": "Achtung, die Kurve!",
+      "description": "Fast freeware snake-line game. Don't hit a wall or another player's trail.",
+      "year": 1995,
+      "genre": [
+        "Arcade",
+        "Multiplayer"
+      ]
+    },
+    {
+      "id": "acid-tetris",
+      "title": "Acid Tetris",
+      "description": "A psychedelic Tetris variant with warped visuals and classic stacking.",
+      "year": 1996,
+      "genre": [
+        "Puzzle"
+      ]
+    },
+    {
       "id": "charlie-the-duck",
       "title": "Charlie the Duck",
       "description": "A colorful platformer where you play as Charlie, a duck on an adventure to save his girlfriend.",
@@ -101,6 +120,45 @@
       ]
     },
     {
+      "id": "dangerous-dave",
+      "title": "Dangerous Dave",
+      "description": "John Romero's early platformer. Climb, jump, and grab the cup to finish each level.",
+      "year": 1988,
+      "genre": [
+        "Platform",
+        "Action"
+      ]
+    },
+    {
+      "id": "dark-ages",
+      "title": "Dark Ages",
+      "description": "Apogee shareware platformer. Three episodes of jumping, shooting, and exploring.",
+      "year": 1991,
+      "genre": [
+        "Platform",
+        "Action"
+      ]
+    },
+    {
+      "id": "dyna-blaster",
+      "title": "Dyna Blaster",
+      "description": "The DOS Bomberman: plant bombs, blast walls, and outlast every opponent.",
+      "year": 1990,
+      "genre": [
+        "Action",
+        "Puzzle"
+      ]
+    },
+    {
+      "id": "j-bird",
+      "title": "J-Bird",
+      "description": "A Q*bert-style arcade climber: hop pyramids and avoid the chasing creatures.",
+      "year": 1983,
+      "genre": [
+        "Arcade"
+      ]
+    },
+    {
       "id": "jetpack",
       "title": "Jetpack",
       "description": "Classic DOS platform game - collect emeralds with your jetpack!",
@@ -127,6 +185,54 @@
       "year": 1992,
       "genre": [
         "Educational"
+      ]
+    },
+    {
+      "id": "pac-gal",
+      "title": "Pac-Gal",
+      "description": "A Pac-Man clone. Eat dots, dodge ghosts, grab fruit.",
+      "year": 1983,
+      "genre": [
+        "Arcade"
+      ]
+    },
+    {
+      "id": "prince-of-persia",
+      "title": "Prince of Persia",
+      "description": "Rotoscoped platforming classic. Survive the dungeon, dodge traps, beat the clock.",
+      "year": 1989,
+      "genre": [
+        "Platform",
+        "Action"
+      ]
+    },
+    {
+      "id": "saboteur",
+      "title": "Saboteur",
+      "description": "Infiltrate an enemy complex as a ninja: punch, sneak, and plant the bomb.",
+      "year": 1986,
+      "genre": [
+        "Action",
+        "Adventure"
+      ]
+    },
+    {
+      "id": "super-worms",
+      "title": "Super Worms",
+      "description": "Arcade snake from the Charlie the Duck team. Eat, grow, and don't bite yourself.",
+      "year": 1995,
+      "genre": [
+        "Arcade"
+      ]
+    },
+    {
+      "id": "wolfenstein-3d",
+      "title": "Wolfenstein 3D",
+      "description": "The original first-person shooter. Fight through Castle Wolfenstein as B.J. Blazkowicz.",
+      "year": 1992,
+      "genre": [
+        "Shooter",
+        "Action"
       ]
     }
   ]

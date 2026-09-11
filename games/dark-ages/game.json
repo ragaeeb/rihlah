@@ -1,0 +1,21 @@
+{
+  "id": "dark-ages",
+  "title": "Dark Ages",
+  "description": "Apogee shareware platformer. Three episodes of jumping, shooting, and exploring.",
+  "author": "Apogee Software",
+  "year": 1991,
+  "genre": [
+    "Platform",
+    "Action"
+  ],
+  "bundle": "dark-ages-bundle.jsdos",
+  "executable": "DA1",
+  "controls": {
+    "Arrow Keys": "Move",
+    "Ctrl": "Jump",
+    "Alt": "Fire",
+    "Esc": "Menu"
+  },
+  "thumbnail": "thumbnail.png",
+  "source": "https://www.retrogames.cz/play_1402-DOS.php"
+}

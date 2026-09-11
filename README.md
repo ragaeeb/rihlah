@@ -2,7 +2,7 @@
 
 [![wakatime](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/8046d532-52e4-4fbc-bdbb-c809fce69e3c.svg)](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/8046d532-52e4-4fbc-bdbb-c809fce69e3c)
 
-A static web application that lets you play classic DOS games directly in your browser. Built with [js-dos](https://js-dos.com/) - a DOSBox emulator compiled to JavaScript.
+A Cloudflare Worker that lets you play classic DOS games directly in your browser. Built with [js-dos](https://js-dos.com/) (DOSBox compiled to WebAssembly). Game bundles live in **R2**, not in git.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
@@ -10,69 +10,76 @@ A static web application that lets you play classic DOS games directly in your b
 
 - **No installation required** - Play directly in your browser
 - **Mobile friendly** - Responsive design works on all devices
-- **Easy to deploy** - Static files, works with GitHub Pages
-- **Easy to extend** - Simple process to add new games
+- **One-command deploy** - `bun run deploy` creates the R2 bucket, uploads games, and publishes the Worker
+- **Easy to extend** - `bun run add-game` then `bun run deploy`
 
 ## 🚀 Quick Start
 
 ### Running Locally
 
 ```bash
-# Clone the repository
 git clone https://github.com/ragaeeb/rihlah.git
 cd rihlah
-
-# Install dependencies (requires Bun >= 1.3.3)
 bun install
-
-# Start local server
 bun run dev
-
-# Open http://localhost:8080 in your browser
+# Open http://localhost:8080
 ```
 
-Or simply open `index.html` in a browser (some features may require a server due to CORS).
+`bun run dev` provisions a **local** R2 bucket, uploads your `games/` folder into it, and starts Wrangler (same request path as production).
 
-### Deploying to GitHub Pages
+```bash
+bun run smoke -- --label after --compare tmp/smoke/before.json
+```
 
-1. Fork or push this repository to GitHub
-2. Go to **Settings** → **Pages**
-3. Under "Build and deployment", select **GitHub Actions**
-4. Push to `main` branch - the site will deploy automatically
+### Deploying to Cloudflare
 
-Your arcade will be live at `https://YOUR_USERNAME.github.io/REPO_NAME/`
+```bash
+bunx wrangler login   # once
+bun run deploy
+```
+
+That is the whole first-time setup: it creates the `rihlah-games` R2 bucket if needed, uploads catalog + `.jsdos` bundles, and deploys the Worker to **https://retro.al-iyaal.club**.
+
+For GitHub Actions, add repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. CI always uploads `src/games.json` and each `games/*/game.json`; it skips only missing `.jsdos` bundle files.
+
+`.jsdos` bundles are gitignored. Keep them locally (or rebuild with `bun run add-game` / `bun run build-bundles`) and publish with `bun run deploy`.
 
 ## 📁 Project Structure
 
 ```
-dos-games-arcade/
-├── index.html              # Main game launcher page
-├── play.html               # Game player page
-├── package.json            # Node.js configuration
+rihlah/
+├── index.html              # Launcher
+├── play.html               # Player (?game=id)
+├── wrangler.jsonc          # Worker + R2 binding
 ├── src/
-│   └── games.json          # List of all games (for launcher)
-├── games/
-│   └── jetpack/            # Game folder
-│       ├── game.json       # Game metadata
-│       └── jetpack-bundle.jsdos  # js-dos bundle
+│   ├── worker.ts           # Serves HTML assets; games from R2
+│   └── games.json          # Launcher catalog (also uploaded to R2)
+├── games/{id}/             # Local working copy (*.jsdos gitignored)
+│   ├── game.json
+│   └── {id}-bundle.jsdos
 ├── scripts/
-│   └── add-game.ts         # Helper script to add games (TypeScript)
-└── .github/
-    └── workflows/
-        └── deploy.yml      # GitHub Pages deployment
+│   ├── deploy.ts           # bun run deploy / bun run dev
+│   └── add-game.ts
+└── .github/workflows/deploy.yml
 ```
 
 ## 🎯 Adding a New Game
 
-### Method 1: Using the Helper Script
+The arcade is a Worker. Add a game locally, then publish it to R2:
 
 ```bash
-bun run add-game
+bun run add-game 480
+bun run add-game https://www.retrogames.cz/play_480-DOS.php
+bun run deploy
 ```
 
-Follow the prompts to enter game details.
+Optional flags: `--id`, `--exe`, `--size 512,8,2,384`, `--force`.
 
-### Method 2: Manual Setup
+That downloads the zip, builds the js-dos bundle, and lists the game on the launcher. Check the game's license before publishing.
+
+### Manual setup
+
+If the game is not on RetroGames.cz:
 
 #### Step 1: Get the Game Files
 
@@ -194,11 +201,7 @@ Add your game to `src/games.json`:
 ```bash
 bun run dev
 # Open http://localhost:8080 and test your game
-
-# When ready, commit and push
-git add .
-git commit -m "Add My Game"
-git push
+bun run deploy
 ```
 
 ## 🔧 DOSBox Configuration
